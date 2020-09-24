@@ -8,7 +8,7 @@ Node::Node() {
 
 /**********************************************************************************************************************/
 
-Node::Node(value_type d, Node* n, Node* p) {
+Node::Node(Node::value_type d, Node* n, Node* p) {
     data = d;
     next = n;
     prev = p;

@@ -3,4 +3,4 @@ project(untitled2)
 
 set(CMAKE_CXX_STANDARD 98)
 
-add_executable(SENG1120_A2 BlackJackDemo.cpp Card.cpp Node.h LinkedList.h HandOfCards.cpp DeckOfCards.cpp)
+add_executable(SENG1120_A2 BlackJackDemo.cpp Card.cpp Node.h LinkedList.h Queue.h HandOfCards.cpp DeckOfCards.cpp)

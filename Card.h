@@ -7,14 +7,25 @@
 #define SENG1120_A2_CARD_H
 
 class Card {
-    public:
+public:
+    std::string getFace();
+    void setFace(std::string s);
+
+    int getValue();
+    void setValue(int v);
+
+    bool getFaceUp();
+    void setFaceUp(bool v);
 
 
-    private:
-
+private:
+    std::string face;
+    int value;
+    bool faceUp;
 
 
 };
 
+std::ostream& operator << (std::ostream& out, Card& c);
 
 #endif //SENG1120_A2_CARD_H
