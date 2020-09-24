@@ -1,0 +1,8 @@
+//
+// Created by Yosiah on 24/09/2020.
+//
+
+#ifndef UNTITLED2_DECKOFCARDS_H
+#define UNTITLED2_DECKOFCARDS_H
+
+#endif //UNTITLED2_DECKOFCARDS_H
