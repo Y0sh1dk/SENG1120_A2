@@ -1,6 +1,7 @@
 #include "Node.h"
 
-Node::Node() {
+template <typename value_type>
+Node<value_type>::Node() {
     data = ""; // string cannot be made null
     next = NULL;
     prev = NULL;
@@ -8,7 +9,8 @@ Node::Node() {
 
 /**********************************************************************************************************************/
 
-Node::Node(Node::value_type d, Node* n, Node* p) {
+template <typename value_type>
+Node<value_type>::Node(value_type d, Node* n, Node* p) {
     data = d;
     next = n;
     prev = p;
@@ -16,7 +18,8 @@ Node::Node(Node::value_type d, Node* n, Node* p) {
 
 /**********************************************************************************************************************/
 
-Node::~Node() {
+template <typename value_type>
+Node<value_type>::~Node() {
 //    delete next;
 //    delete prev;
 //    Cannot do this ^ or deleting one node will delete them all
@@ -24,36 +27,42 @@ Node::~Node() {
 
 /**********************************************************************************************************************/
 
-Node::value_type Node::getData() const {
+template <typename value_type>
+value_type Node<value_type>::getData() const {
     return data;
 }
 
 /**********************************************************************************************************************/
 
-void Node::setData(const Node::value_type givenData) {
+template <typename value_type>
+void Node<value_type>::setData(const value_type givenData) {
     data = givenData;
 }
 
 /**********************************************************************************************************************/
 
-Node* Node::getNext() const {
+template <typename value_type>
+Node<value_type>* Node<value_type>::getNext() const {
     return next;
 }
 
 /**********************************************************************************************************************/
 
-void Node::setNext(Node* n) {
+template <typename value_type>
+void Node<value_type>::setNext(Node* n) {
     next = n;
 }
 
 /**********************************************************************************************************************/
 
-Node* Node::getPrev() const {
+template <typename value_type>
+Node<value_type>* Node<value_type>::getPrev() const {
     return prev;
 }
 
 /**********************************************************************************************************************/
 
-void Node::setPrev(Node* n) {
+template <typename value_type>
+void Node<value_type>::setPrev(Node* n) {
     prev = n;
 }

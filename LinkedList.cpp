@@ -3,7 +3,8 @@
 #include <string>
 #include "LinkedList.h"
 
-LinkedList::LinkedList() {
+template <typename value_type>
+LinkedList<value_type>::LinkedList() {
     current = NULL;
     head = NULL;
     tail = NULL;
@@ -11,7 +12,8 @@ LinkedList::LinkedList() {
 
 /**********************************************************************************************************************/
 
-LinkedList::~LinkedList() {
+template <typename value_type>
+LinkedList<value_type>::~LinkedList() {
     if (size() > 0) {
         start();
         while(1) {
@@ -29,7 +31,8 @@ LinkedList::~LinkedList() {
 
 /**********************************************************************************************************************/
 
-void LinkedList::addToHead(value_type& item) {
+template <typename value_type>
+void LinkedList<value_type>::addToHead(value_type& item) {
     Node* newNode = new Node(item, head, NULL);
     if (head != NULL) {
         head->setPrev(newNode);
@@ -42,7 +45,8 @@ void LinkedList::addToHead(value_type& item) {
 
 /**********************************************************************************************************************/
 
-void LinkedList::addToTail(value_type item) { // cannot take reference because of how its called
+template <typename value_type>
+void LinkedList<value_type>::addToTail(value_type item) { // cannot take reference because of how its called
     if (tail == NULL) {
         Node* temp = new Node(item);
         head = temp;
@@ -55,13 +59,14 @@ void LinkedList::addToTail(value_type item) { // cannot take reference because o
        temp->setPrev(tail);
        tail = temp;
        start();
-       temp = NULL; 
+       temp = NULL;
     }
 }
 
 /**********************************************************************************************************************/
 
-void LinkedList::addAfterCurrent(value_type& item) { // insert after 'current'
+template <typename value_type>
+void LinkedList<value_type>::addAfterCurrent(value_type& item) { // insert after 'current'
     if (current == NULL) { // cannot insert after a NULL
         return;
     }
@@ -79,7 +84,8 @@ void LinkedList::addAfterCurrent(value_type& item) { // insert after 'current'
 
 /**********************************************************************************************************************/
 
-void LinkedList::removeHead() {
+template <typename value_type>
+void LinkedList<value_type>::removeHead() {
     head = head->getNext();
     delete(head->getPrev());
     head->setPrev(NULL);
@@ -87,7 +93,8 @@ void LinkedList::removeHead() {
 
 /**********************************************************************************************************************/
 
-void LinkedList::removeTail() {
+template <typename value_type>
+void LinkedList<value_type>::removeTail() {
     tail = tail->getPrev();
     delete(tail->getNext());
     tail->setNext(NULL);
@@ -95,7 +102,8 @@ void LinkedList::removeTail() {
 
 /**********************************************************************************************************************/
 
-void LinkedList::removeCurrent() {
+template <typename value_type>
+void LinkedList<value_type>::removeCurrent() {
     if (current != tail) {
         current->getPrev()->setNext(current->getNext());
         current->getNext()->setPrev(current->getPrev());
@@ -110,7 +118,8 @@ void LinkedList::removeCurrent() {
 
 /**********************************************************************************************************************/
 
-void LinkedList::add(const LinkedList::value_type& s) {
+template <typename value_type>
+void LinkedList<value_type>::add(const value_type& s) {
     int pos = -1;
     for (unsigned long int i = 0; i <= s.length(); i++) {
         if (isspace(s[i])) {
@@ -124,7 +133,8 @@ void LinkedList::add(const LinkedList::value_type& s) {
 
 /**********************************************************************************************************************/
 
-void LinkedList::remove(const value_type& s) {
+template <typename value_type>
+void LinkedList<value_type>::remove(const value_type& s) {
     bool sentence = false; // tries to remove sentence if there is a space
     for (unsigned long int i = 0; i <= s.length(); i++) {
         if (isspace(s[i])) {
@@ -140,7 +150,8 @@ void LinkedList::remove(const value_type& s) {
 
 /**********************************************************************************************************************/
 
-void LinkedList::removeWord(const LinkedList::value_type& s) {
+template <typename value_type>
+void LinkedList<value_type>::removeWord(const value_type& s) {
     start();
     while (current != NULL) { // runs through till hits end
         if (getCurrent() == s) {
@@ -153,85 +164,8 @@ void LinkedList::removeWord(const LinkedList::value_type& s) {
 
 /**********************************************************************************************************************/
 
-void LinkedList::removeSentence(const LinkedList::value_type& s) {
-    start();
-    LinkedList::value_type firstWord;
-    LinkedList::value_type lastWord;
-    int numOfWords = 1; // always atleast 1 word
-
-    int pos = -1;
-//    Find first word of string to remove
-    for (unsigned long int i = 0; i <= s.length(); i++) {
-        if (isspace(s[i])) {
-            firstWord = s.substr(pos+1, i-pos-1);
-            break;
-        }
-    }
-//    Find last word of string to remove
-    for (unsigned long int i = s.length(); i >= 0; i--) { // loop from end forwards
-        if (isspace(s[i])) {
-            lastWord = s.substr(i-pos, s.length()+1);
-            break;
-        }
-    }
-//    Find number of words
-    for (unsigned long int i = 0; i < s.length(); i++) { // loop from end forwards
-        if (isspace(s[i])) {
-            numOfWords++;
-        }
-    }
-    bool sentenceFound = true;
-    while (sentenceFound) {
-        Node* firstNode = NULL;
-        Node* lastNode = NULL;
-
-        //    Find the node of the first and last word in the LL
-        start();
-        while (current != NULL) { // runs through till hits end
-            if (getCurrent() == firstWord) {
-                firstNode = current;
-                break;
-            }
-            forward();
-        }
-//    start();
-        while (current != NULL) {
-            if (getCurrent() == lastWord) {
-                lastNode = current;
-                break;
-            }
-            forward();
-        }
-
-        if (firstNode == NULL || lastNode == NULL) {
-            sentenceFound = false;
-            break;
-        }
-
-
-        Node* t = firstNode;
-        for (int i = 0; i < numOfWords-1; i++) {
-            t = t->getNext();
-        }
-        start();
-        if (t == lastNode) { // sentence found, time to delete it
-            Node* temp = firstNode;
-            Node* tempNext = temp;
-            for (int i = 0; i < numOfWords; i++) {
-                current = tempNext;
-                tempNext = tempNext->getNext();
-                removeCurrent();
-                current = tempNext;
-            }
-        } else {
-            sentenceFound = false;
-        }
-    }
-}
-
-/**********************************************************************************************************************/
-
-void LinkedList::sort() {
+template <typename value_type>
+void LinkedList<value_type>::sort() {
     start();
     int s = size();
     bool ordered = false;
@@ -274,49 +208,57 @@ void LinkedList::sort() {
 
 /**********************************************************************************************************************/
 
-void LinkedList::start() {
+template <typename value_type>
+void LinkedList<value_type>::start() {
     current = head;
 }
 
 /**********************************************************************************************************************/
 
-void LinkedList::end() {
+template <typename value_type>
+void LinkedList<value_type>::end() {
     current = tail;
 }
 
 /**********************************************************************************************************************/
 
-void LinkedList::forward() {
+template <typename value_type>
+void LinkedList<value_type>::forward() {
     current = current->getNext();
 }
 
 /**********************************************************************************************************************/
 
-void LinkedList::back() {
+template <typename value_type>
+void LinkedList<value_type>::back() {
     current = current->getPrev();
 }
 
 /**********************************************************************************************************************/
 
-LinkedList::value_type LinkedList::getCurrent() const {
+template <typename value_type>
+value_type LinkedList<value_type>::getCurrent() const {
     return current->getData();
 }
 
 /**********************************************************************************************************************/
 
-LinkedList::value_type LinkedList::getHead() const {
+template <typename value_type>
+value_type LinkedList<value_type>::getHead() const {
     return head->getData();
 }
 
 /**********************************************************************************************************************/
 
-LinkedList::value_type LinkedList::getTail() const{
+template <typename value_type>
+value_type LinkedList<value_type>::getTail() const{
     return tail->getData();
 }
 
 /**********************************************************************************************************************/
 
-unsigned int const LinkedList::size() {
+template <typename value_type>
+unsigned int const LinkedList<value_type>::size() {
     int a = 0;
     for (current = head; current != NULL; current = current->getNext()) {
         a++;
@@ -327,7 +269,8 @@ unsigned int const LinkedList::size() {
 
 /**********************************************************************************************************************/
 
-unsigned int const LinkedList::count(const LinkedList::value_type& s) {
+template <typename value_type>
+unsigned int const LinkedList<value_type>::count(const value_type& s) {
     start();
     int a = 0;
     while (current != NULL) {
@@ -341,7 +284,8 @@ unsigned int const LinkedList::count(const LinkedList::value_type& s) {
 
 /**********************************************************************************************************************/
 
-std::ostream& operator << (std::ostream& out, LinkedList& l) {
+template <typename value_type>
+std::ostream& operator << (std::ostream& out, LinkedList<value_type>& l) {
     l.start(); // set current pointer to head
     LinkedList::value_type sentence;
     int size = l.size();
@@ -356,7 +300,8 @@ std::ostream& operator << (std::ostream& out, LinkedList& l) {
 
 /**********************************************************************************************************************/
 
-void LinkedList::operator+= (LinkedList& l2) {
+template <typename value_type>
+void LinkedList<value_type>::operator+= (LinkedList& l2) {
     l2.start();
     int l2size = l2.size();
     for (int i = 0; i < l2size; i++) {

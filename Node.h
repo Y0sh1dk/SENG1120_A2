@@ -1,12 +1,11 @@
-#include <string>
+
 
 #ifndef MY_NODE
 #define MY_NODE
 
+template <typename value_type>
 class Node {
     public:
-        typedef std::string value_type;
-
         //Pre-Condition: None
         // Creates a empty node instance
         //Post-Condition: None
@@ -57,4 +56,5 @@ class Node {
         Node* prev; // store ptr to the previous node
 };
 
+#include "Node.hpp"
 #endif
