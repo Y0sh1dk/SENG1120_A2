@@ -1,3 +1,9 @@
+/*
+ * Name: Yosiah de Koeyer
+ * Student No: c3329520
+ * Course: SENG1120 - A2
+ */
+
 #include <iostream>
 #include <cstdlib>
 #include <string>

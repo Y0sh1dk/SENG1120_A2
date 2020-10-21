@@ -1,6 +1,8 @@
-//
-// Created by Yosiah on 24/09/2020.
-//
+/*
+ * Name: Yosiah de Koeyer
+ * Student No: c3329520
+ * Course: SENG1120 - A2
+ */
 
 #include "string.h"
 #include "Queue.h"

@@ -1,6 +1,8 @@
-//
-// Created by Yosiah on 23/09/2020.
-//
+/*
+ * Name: Yosiah de Koeyer
+ * Student No: c3329520
+ * Course: SENG1120 - A2
+ */
 
 #include "Card.h"
 
@@ -15,7 +17,7 @@ Card::Card(std::string givenFace, int givenValue, bool givenFaceUp) {
 }
 
 Card::~Card() {
-
+ // Nothing to delete here
 }
 
 std::string Card::getFace() {

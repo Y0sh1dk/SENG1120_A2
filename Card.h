@@ -1,6 +1,9 @@
-//
-// Created by Yosiah on 23/09/2020.
-//
+/*
+ * Name: Yosiah de Koeyer
+ * Student No: c3329520
+ * Course: SENG1120 - A2
+ */
+
 #include <string>
 
 #ifndef SENG1120_A2_CARD_H
