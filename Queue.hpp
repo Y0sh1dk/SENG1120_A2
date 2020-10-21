@@ -9,6 +9,8 @@
 
 #include "Queue.h"
 
+/**********************************************************************************************************************/
+
 template <typename value_type>
 Queue<value_type>::Queue() {
     data = new LinkedList<value_type>;

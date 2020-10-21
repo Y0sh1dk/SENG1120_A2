@@ -9,6 +9,8 @@
 
 #include "Node.h"
 
+/**********************************************************************************************************************/
+
 template <typename value_type>
 Node<value_type>::Node() {
     data = ""; // string cannot be made null

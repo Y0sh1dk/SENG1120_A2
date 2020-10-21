@@ -16,6 +16,8 @@
 #include "Queue.h"
 #include "Card.h"
 
+/**********************************************************************************************************************/
+
 std::string DeckOfCards::intToString(int n) {
     std::stringstream ss;
     std::string s;
@@ -24,6 +26,7 @@ std::string DeckOfCards::intToString(int n) {
     return s;
 }
 
+/**********************************************************************************************************************/
 
 DeckOfCards::DeckOfCards() {
     data = new Queue<Card>;
@@ -68,9 +71,13 @@ DeckOfCards::DeckOfCards() {
     }
 }
 
+/**********************************************************************************************************************/
+
 DeckOfCards::~DeckOfCards() {
     delete(data);
 }
+
+/**********************************************************************************************************************/
 
 void DeckOfCards::shuffle() {
     Queue<Card> decks[4];
@@ -82,14 +89,13 @@ void DeckOfCards::shuffle() {
     srand((unsigned int)time(NULL)); // Or else it possible for dealer to win automatically over and over
     int randn;
     Card temp;
-    bool dequeueSuccess;
     for (int i = 0; i < 1000; i++) {
         randn = rand() % 4;
         try {
             temp = decks[randn].dequeue();
             randn = rand() % 4;
             decks[randn].enqueue(temp);
-        } catch (std::logic_error) { // happens when trying to dequeue() from a empty queue.
+        } catch (std::logic_error const&) { // happens when trying to dequeue() from a empty queue.
 
         }
 
@@ -102,13 +108,19 @@ void DeckOfCards::shuffle() {
     }
 }
 
+/**********************************************************************************************************************/
+
 Card DeckOfCards::draw() {
     return data->dequeue();
 }
+/**********************************************************************************************************************/
+
 
 int DeckOfCards::size() {
     return data->size();
 }
+
+/**********************************************************************************************************************/
 
 std::string DeckOfCards::printDeck() {
     std::string deck;
@@ -119,6 +131,8 @@ std::string DeckOfCards::printDeck() {
     }
     return deck;
 }
+
+/**********************************************************************************************************************/
 
 std::ostream &operator<<(std::ostream &out, DeckOfCards &l) {
     out << l.printDeck();
