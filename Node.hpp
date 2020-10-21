@@ -34,6 +34,7 @@ Node<value_type>::~Node() {
 //    delete next;
 //    delete prev;
 //    Cannot do this ^ or deleting one node will delete them all
+//    Data isnt stored as a pointer so dont need to delete it
 }
 
 /**********************************************************************************************************************/

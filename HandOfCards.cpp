@@ -34,12 +34,12 @@ void HandOfCards::add(Card c, bool b) {
 
 int HandOfCards::count() {
     int c = 0;
-    for( int i = 0; i < data->size(); i++) {
-        Card tempCard = data->dequeue();
+    for( int i = 0; i < data->size(); i++) {    // for all cards in hand
+        Card tempCard = data->dequeue();        // dequeue into temp to read face
         if (tempCard.getFaceUp() == true) {
-            c += tempCard.getValue();
+            c += tempCard.getValue();           // only add value if face up
         }
-        data->enqueue(tempCard);
+        data->enqueue(tempCard);                // enqueue temp
     }
     return c;
 }
@@ -48,10 +48,10 @@ int HandOfCards::count() {
 
 int HandOfCards::countAll() {
     int c = 0;
-    for( int i = 0; i < data->size(); i++) {
-        Card tempCard = data->dequeue();
-        c += tempCard.getValue();
-        data->enqueue(tempCard);
+    for( int i = 0; i < data->size(); i++) {    // for all cards in hand
+        Card tempCard = data->dequeue();        // dequeue into temp
+        c += tempCard.getValue();               // add value
+        data->enqueue(tempCard);                // enqueue temp
     }
     return c;
 }
@@ -60,26 +60,26 @@ int HandOfCards::countAll() {
 
 std::string HandOfCards::value() {
     std::string cardSequence;
-    for( int i = 0; i < data->size(); i++) {
-        Card tempCard = data->dequeue();
+    for( int i = 0; i < data->size(); i++) {            // for all cards in hand
+        Card tempCard = data->dequeue();                // dequeue into temp
         if (tempCard.getFaceUp() == true) {
-            cardSequence += tempCard.getFace() + " ";
+            cardSequence += tempCard.getFace() + " ";   // if card is facing up, get its face
         }
         else {
-            cardSequence += "?-? ";
+            cardSequence += "?-? ";                     // if card isnt facing up, "?-?"
         }
-        data->enqueue(tempCard);
+        data->enqueue(tempCard);                        // enqueue temp
     }
     return cardSequence;
 }
 
 /**********************************************************************************************************************/
 
-void HandOfCards::faceUp() {
-    for( int i = 0; i < data->size(); i++) {
-        Card tempCard = data->dequeue();
-        tempCard.setFaceUp(true);
-        data->enqueue(tempCard);
+void HandOfCards::faceUp() {                    // Could be more efficient using front()?
+    for( int i = 0; i < data->size(); i++) {    // for all cards in hand
+        Card tempCard = data->dequeue();        // dequeue into temp
+        tempCard.setFaceUp(true);               // set faceup
+        data->enqueue(tempCard);                // requeue
     }
 }
 
@@ -89,7 +89,7 @@ std::ostream &operator<<(std::ostream &out, HandOfCards &h) {
     std::stringstream ss;
     std::string s;
     ss<< h.count();
-    ss>>s;
+    ss>>s;              // convert count to string
     out << h.value() + +"(" + s + " points)";
     return out;
 }

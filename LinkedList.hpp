@@ -135,21 +135,6 @@ void LinkedList<value_type>::removeCurrent() {
 /**********************************************************************************************************************/
 
 template <typename value_type>
-void LinkedList<value_type>::removeWord(const value_type& s) {
-    start();
-    while (current != NULL) { // runs through till hits end
-        if (getCurrent() == s) {
-            removeCurrent();
-            start();
-        }
-        forward();
-    }
-}
-
-
-/**********************************************************************************************************************/
-
-template <typename value_type>
 void LinkedList<value_type>::start() {
     current = head;
 }
