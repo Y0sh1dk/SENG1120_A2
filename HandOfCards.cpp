@@ -70,6 +70,6 @@ std::ostream &operator<<(std::ostream &out, HandOfCards &h) {
     std::string s;
     ss<< h.count();
     ss>>s;
-    out << h.value() + +"( " + s + " points)";
+    out << h.value() + +"(" + s + " points)";
     return out;
 }

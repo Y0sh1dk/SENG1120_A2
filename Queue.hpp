@@ -27,10 +27,13 @@ void Queue<value_type>::enqueue(value_type givenData) {
 
 template <typename value_type>
 value_type Queue<value_type>::dequeue() {
-    data->start();
-    value_type temp = data->getHead();
-    data->removeHead();
-    return temp;
+    if (data->size() > 0) {
+        data->start();
+        value_type temp = data->getHead();
+        data->removeHead();
+        return temp;
+    }
+    throw std::logic_error("Empty");
 }
 
 /**********************************************************************************************************************/

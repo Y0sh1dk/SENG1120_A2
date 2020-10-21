@@ -86,9 +86,16 @@ void LinkedList<value_type>::addAfterCurrent(value_type& item) { // insert after
 
 template <typename value_type>
 void LinkedList<value_type>::removeHead() {
-    head = head->getNext();
-    delete(head->getPrev());
-    head->setPrev(NULL);
+    if (head != tail) {
+        head = head->getNext();
+        delete(head->getPrev());
+        head->setPrev(NULL);
+    } else {
+        delete(head);
+        head = NULL;
+        tail = NULL;
+        current = NULL;
+    }
 }
 
 /**********************************************************************************************************************/

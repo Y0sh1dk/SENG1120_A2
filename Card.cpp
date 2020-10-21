@@ -14,6 +14,10 @@ Card::Card(std::string givenFace, int givenValue, bool givenFaceUp) {
     faceUp = givenFaceUp;
 }
 
+Card::~Card() {
+
+}
+
 std::string Card::getFace() {
     return face;
 }
