@@ -2,6 +2,9 @@
  * Name: Yosiah de Koeyer
  * Student No: c3329520
  * Course: SENG1120 - A2
+ *
+ * File: Queue.hpp
+ * Description: Queue Implementation
  */
 
 #include "Queue.h"
