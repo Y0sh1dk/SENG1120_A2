@@ -118,7 +118,7 @@ public:
     //Pre-Condition: None
     //
     //Post-Condition: Returns a unsigned int of how many nodes are in the LL
-    unsigned int const size(); // can only be positive so unsigned
+    int const size(); // can only be positive so unsigned
 
     //Pre-Condition: A second list to concatenate to the current
     //
@@ -132,10 +132,6 @@ private:
 
 };
 
-//Pre-Condition: None
-//
-//Post-Condition: Returns a string representation of the LL class
-template<typename value_type>
-std::ostream &operator<<(std::ostream &out, LinkedList<value_type> &l);
+#include "LinkedList.hpp"
 
 #endif

@@ -4,6 +4,16 @@
 
 #include "Card.h"
 
+Card::Card() {
+
+}
+
+Card::Card(std::string givenFace, int givenValue, bool givenFaceUp) {
+    face = givenFace;
+    value = givenValue;
+    faceUp = givenFaceUp;
+}
+
 std::string Card::getFace() {
     return face;
 }

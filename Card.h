@@ -8,6 +8,11 @@
 
 class Card {
 public:
+
+    Card();
+
+    Card(std::string givenFace, int givenValue, bool givenFaceUp);
+
     std::string getFace();
     void setFace(std::string s);
 
@@ -17,12 +22,13 @@ public:
     bool getFaceUp();
     void setFaceUp(bool v);
 
-
 private:
+
+
+
     std::string face;
     int value;
     bool faceUp;
-
 
 };
 

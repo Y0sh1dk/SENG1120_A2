@@ -1,4 +1,5 @@
 
+#include <cstdlib>
 
 #ifndef MY_NODE
 #define MY_NODE

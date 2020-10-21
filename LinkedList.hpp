@@ -17,7 +17,7 @@ LinkedList<value_type>::~LinkedList() {
     if (size() > 0) {
         start();
         while(1) {
-            Node* next;
+            Node<value_type>* next;
             if (current->getNext() != NULL) {
                 next = current->getNext();
             } else {
@@ -33,7 +33,7 @@ LinkedList<value_type>::~LinkedList() {
 
 template <typename value_type>
 void LinkedList<value_type>::addToHead(value_type& item) {
-    Node* newNode = new Node(item, head, NULL);
+    Node<value_type>* newNode = new Node<value_type>(item, head, NULL);
     if (head != NULL) {
         head->setPrev(newNode);
     }
@@ -48,13 +48,13 @@ void LinkedList<value_type>::addToHead(value_type& item) {
 template <typename value_type>
 void LinkedList<value_type>::addToTail(value_type item) { // cannot take reference because of how its called
     if (tail == NULL) {
-        Node* temp = new Node(item);
+        Node<value_type>* temp = new Node<value_type>(item);
         head = temp;
         tail = temp;
         start();
         temp = NULL;
     } else { // atleast one node
-       Node* temp = new Node(item);
+       Node<value_type>* temp = new Node<value_type>(item);
        tail->setNext(temp);
        temp->setPrev(tail);
        tail = temp;
@@ -70,7 +70,7 @@ void LinkedList<value_type>::addAfterCurrent(value_type& item) { // insert after
     if (current == NULL) { // cannot insert after a NULL
         return;
     }
-    Node* newNode = new Node(item);
+    Node<value_type>* newNode = new Node<value_type>(item);
     if (current == tail) {
         tail = newNode;
     }
@@ -119,38 +119,6 @@ void LinkedList<value_type>::removeCurrent() {
 /**********************************************************************************************************************/
 
 template <typename value_type>
-void LinkedList<value_type>::add(const value_type& s) {
-    int pos = -1;
-    for (unsigned long int i = 0; i <= s.length(); i++) {
-        if (isspace(s[i])) {
-            addToTail(s.substr(pos+1, i-pos-1));
-            pos = i;
-        }
-    }
-    LinkedList::value_type lastWord =  s.substr(pos+1, s.length());
-    addToTail(lastWord);
-}
-
-/**********************************************************************************************************************/
-
-template <typename value_type>
-void LinkedList<value_type>::remove(const value_type& s) {
-    bool sentence = false; // tries to remove sentence if there is a space
-    for (unsigned long int i = 0; i <= s.length(); i++) {
-        if (isspace(s[i])) {
-            sentence = true;
-        }
-    }
-    if (sentence) {
-        removeSentence(s);
-    } else {
-        removeWord(s);
-    }
-}
-
-/**********************************************************************************************************************/
-
-template <typename value_type>
 void LinkedList<value_type>::removeWord(const value_type& s) {
     start();
     while (current != NULL) { // runs through till hits end
@@ -162,49 +130,6 @@ void LinkedList<value_type>::removeWord(const value_type& s) {
     }
 }
 
-/**********************************************************************************************************************/
-
-template <typename value_type>
-void LinkedList<value_type>::sort() {
-    start();
-    int s = size();
-    bool ordered = false;
-    while (!ordered) {
-        start();
-        bool order = true;
-        for (int i = 0; i < s-1; i++) {
-            LinkedList::value_type currentString = getCurrent();
-            forward();
-            LinkedList::value_type nextString = getCurrent();
-
-//        Find smallest word
-            int minWordSize = 0;
-            if (currentString.length() > nextString.length()) {
-                minWordSize = nextString.length();
-            } else if (currentString.length() < nextString.length()) {
-                minWordSize = currentString.length();
-            } else { // same size
-                minWordSize = currentString.length();
-            }
-
-            for (int i = 0; i < minWordSize; i++) {
-                if (currentString.at(i) > nextString.at(i)) {
-//                swap two nodes
-                    LinkedList::value_type temp = current->getData();
-                    removeCurrent();
-                    addToHead(temp);
-                    order = false;
-                    break;
-                } else if (currentString.at(i) < nextString.at(i)) {
-                    break;
-                }
-            }
-        }
-        if (order) {
-            ordered = true;
-        }
-    }
-}
 
 /**********************************************************************************************************************/
 
@@ -258,7 +183,7 @@ value_type LinkedList<value_type>::getTail() const{
 /**********************************************************************************************************************/
 
 template <typename value_type>
-unsigned int const LinkedList<value_type>::size() {
+int const LinkedList<value_type>::size() {
     int a = 0;
     for (current = head; current != NULL; current = current->getNext()) {
         a++;
@@ -285,27 +210,11 @@ unsigned int const LinkedList<value_type>::count(const value_type& s) {
 /**********************************************************************************************************************/
 
 template <typename value_type>
-std::ostream& operator << (std::ostream& out, LinkedList<value_type>& l) {
-    l.start(); // set current pointer to head
-    LinkedList::value_type sentence;
-    int size = l.size();
-    for (int i = 0; i < size; i++) {
-        sentence += l.getCurrent();
-        sentence += " ";
-        l.forward();
-    }
-    out << sentence;
-    return out;
-}
-
-/**********************************************************************************************************************/
-
-template <typename value_type>
 void LinkedList<value_type>::operator+= (LinkedList& l2) {
     l2.start();
     int l2size = l2.size();
     for (int i = 0; i < l2size; i++) {
-        LinkedList::value_type temp = l2.getCurrent();
+        value_type temp = l2.getCurrent();
         addToTail(temp);
         l2.forward();
     }
